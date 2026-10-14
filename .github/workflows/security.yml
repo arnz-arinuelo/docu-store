@@ -32,6 +32,9 @@ jobs:
 
   image:
     name: Trivy image (${{ matrix.component }})
+    # Image findings come from the base image, not the commit, and the two builds
+    # take 10-15 min. Weekly + manual here; publish-*.yml scans before each push.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       contents: read

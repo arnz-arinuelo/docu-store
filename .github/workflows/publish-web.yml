@@ -41,8 +41,28 @@ jobs:
             exit 1
           fi
 
-      # No build-args needed — config is loaded at runtime via /api/config
-      - uses: docker/build-push-action@v6
+      # No build-args needed — config is loaded at runtime via /api/config.
+      # Same gate as scripts/security-scan.sh: build, scan, push. The push
+      # step rebuilds from the builder's cache, so it only exports.
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: web/
+          load: true
+          tags: docu-store-web:scan
+          cache-from: type=gha,scope=web
+
+      - name: Trivy vulnerability scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: docu-store-web:scan
+          severity: HIGH,CRITICAL
+          exit-code: 1
+          trivyignores: .trivyignore
+          ignore-unfixed: true
+
+      - name: Push image
+        uses: docker/build-push-action@v6
         with:
           context: web/
           push: true

@@ -8,6 +8,10 @@ updates:
       services-minor-patch:
         patterns: ["*"]
         update-types: [minor, patch]
+    # Majors (docling, langchain, rdkit calver years, ...) are deliberate upgrades.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: npm
     directory: /web
@@ -30,17 +34,24 @@ updates:
       cli-minor-patch:
         patterns: ["*"]
         update-types: [minor, patch]
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    # Action bumps are major-only (v4 -> v7), so group them all into one PR.
     groups:
-      actions-minor-patch:
+      actions:
         patterns: ["*"]
-        update-types: [minor, patch]
 
   - package-ecosystem: docker
     directories: [/services, /web]
     schedule:
       interval: weekly
+    # Base image majors (python 3.x, node 2x) are deliberate upgrades.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]

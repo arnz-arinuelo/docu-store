@@ -1,0 +1,41 @@
+name: Web
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'web/**'
+      - '.github/workflows/web.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'web/**'
+      - '.github/workflows/web.yml'
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+
+      # Installed before setup-node so its pnpm store cache can resolve.
+      - run: npm install -g pnpm@11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+
+      - run: pnpm install --frozen-lockfile
+
+      # next-env.d.ts imports .next/types/routes.d.ts, which only a build or
+      # typegen writes.
+      - run: pnpm --filter portal exec next typegen
+
+      # Every package's lint script is tsc --noEmit; there is no ESLint yet
+      # (docs/security-backlog.md).
+      - run: pnpm -r lint
