@@ -8,6 +8,22 @@ const nextConfig: NextConfig = {
     APP_VERSION: pkg.version,
   },
   output: "standalone",
+  // Baseline security headers. HSTS is the reverse proxy's job. A full CSP
+  // needs nonces for Next's inline scripts, so only frame-ancestors is set.
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+          { key: "Content-Security-Policy", value: "frame-ancestors 'none'" },
+        ],
+      },
+    ];
+  },
   transpilePackages: [
     "@docu-store/ui",
     "@docu-store/types",

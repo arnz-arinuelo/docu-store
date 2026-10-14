@@ -260,6 +260,12 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
+    # Security headers — added last so they are outermost and reach every
+    # response, including CORS preflights and Duar 401s.
+    from interfaces.api.middleware.security_headers import SecurityHeadersMiddleware
+
+    app.add_middleware(SecurityHeadersMiddleware)
+
     # Include routers
     app.include_router(artifact_router)
     app.include_router(auth_router)
