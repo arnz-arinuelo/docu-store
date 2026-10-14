@@ -29,3 +29,4 @@ minimumReleaseAgeExclude:
 overrides:
   "immutable@<3.8.4": "^3.8.4"
   "minimatch@<3.1.4": "^3.1.4"
+  "js-yaml@<4.3.2": "^4.3.2"
