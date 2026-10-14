@@ -32,7 +32,7 @@ That was a red herring — native tool selection works fine (gemma4:31b picks
 `search_compound_structure` correctly; the deterministic prefetch fires
 regardless of mode). The failure is purely this label mismatch.
 
-### Evidence (production, ned / workspace `6299d8cf-9db0-4d7f-b2cd-8893b8a02602`)
+### Evidence (production, prod / workspace `6299d8cf-9db0-4d7f-b2cd-8893b8a02602`)
 
 - `compound_embeddings` holds 3576 points. No `CMX410`; the only cmx-like ids are
   `CMX41O` and `mCMX41O` (letter O).
@@ -61,7 +61,7 @@ questions → "measure the blast radius").
   it bridges only glyph-identical pairs (0↔O, 1↔I/l), **never** distinct digits —
   `CMX410` must never resolve to `CMX411` (a different analog-series compound).
 - Verified against the live store: the variants resolve `CMX41O`.
-- **NOT yet deployed to ned** — needs a services release + redeploy.
+- **NOT yet deployed to prod** — needs a services release + redeploy.
 
 ### Why #1 is not enough (why #3 exists)
 
@@ -142,4 +142,4 @@ label is worse than an unreconciled one.
   `design_docs/BULK_REPROCESS_COMPOUNDS.md`,
   `project_chat_pipeline_architecture` (memory).
 - Reproduce the miss: chat "structure of CMX410" in workspace `6299d8cf…`; watch
-  `compound_lookup_by_name_completed raw_matches: 0` in `docu_store_api` logs on ned.
+  `compound_lookup_by_name_completed raw_matches: 0` in `docu_store_api` logs on prod.

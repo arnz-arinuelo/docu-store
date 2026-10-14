@@ -74,3 +74,6 @@ services/evaluation/
 
 # Literature Stats design doc — Siddhant controls its first commit
 services/design_docs/LITERATURE_STATS_DESIGN.md
+
+# Claude Code local config (settings, skills, scheduled tasks)
+.claude/

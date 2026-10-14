@@ -830,7 +830,7 @@ git commit -m "feat(app): CorrectPageCompoundMentionsUseCase with SMILES revalid
 
 - [ ] **Step 1: Verify the old per-field artifact PATCH routes are unconsumed**
 
-Run: `rg -n "title_mention\"|tag_mentions\"" /Users/sidx/workspace/docu-store/web/apps /Users/sidx/workspace/docu-store/web/packages/api-client/src/client.ts` and `rg -rn "PATCH.*(title_mention|tag_mentions)" /Users/sidx/workspace/docu-store/web`.
+Run: `rg -n "title_mention\"|tag_mentions\"" <repo>/web/apps <repo>/web/packages/api-client/src/client.ts` and `rg -rn "PATCH.*(title_mention|tag_mentions)" <repo>/web`.
 Expected: no FE callers (investigation already found none). If a caller shows up, keep the route and only note it; otherwise proceed with removal.
 
 - [ ] **Step 2: Write failing route tests**

@@ -1135,9 +1135,9 @@ git commit -m "docs(ner): correct compound_name entity type; finalize label reco
 
 ## Post-implementation (out of plan scope — human-gated)
 
-1. **Run the measurement:** `uv run python scripts/reconcile_compound_labels.py` (dry-run, all artifacts) against a copy of prod data — or on ned with workers up. Read the by-class report: it is the blast-radius number.
+1. **Run the measurement:** `uv run python scripts/reconcile_compound_labels.py` (dry-run, all artifacts) against a copy of prod data — or on prod with workers up. Read the by-class report: it is the blast-radius number.
 2. **Decide the write-backfill** from that number. If worth it, run `--apply` (workers must be up so emitted events re-derive Qdrant + Mongo). Idempotent — safe to re-run.
-3. **Ship** via `scripts/release.sh` (services component) and redeploy ned. The live path fixes new ingestions automatically.
+3. **Ship** via `scripts/release.sh` (services component) and redeploy prod. The live path fixes new ingestions automatically.
 4. **#1 remains** as the query-time safety net for the residual tail (reverse-race stragglers, no-NER-name pages). No action.
 
 ## Verification notes for the implementer

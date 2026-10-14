@@ -1865,7 +1865,7 @@ git commit -m "chore(usage): idempotent backfill of historical chat token usage 
 - [ ] `cd web && pnpm --filter portal build` — clean.
 - [ ] Grep gates: `grep -rn "else total_tokens" services/infrastructure/chat/` → empty; `grep -rn "get_user_token_usage" services/application/ports/chat_repository.py` → empty.
 - [ ] Manual smoke (needs the dev stack + an LLM provider): send a chat message → `token_usage_events` gains one `kind:"chat"` doc with your user id; upload a small PDF → `kind:"ingestion"` docs appear (`page_summary` per page, one `artifact_summary`); `GET /chat/usage?days=30` returns windowed totals; `/stats/member-usage` shows the split; Langfuse trace shows your user id + conversation session.
-- [ ] Deploy notes: run the Task 8 backfill on ned after deploy (idempotent, any time). No env changes required (`MONGO_TOKEN_USAGE_COLLECTION` optional). Existing `GET /stats/token-usage` (date/mode chart from `chat_messages`) is intentionally unchanged.
+- [ ] Deploy notes: run the Task 8 backfill on prod after deploy (idempotent, any time). No env changes required (`MONGO_TOKEN_USAGE_COLLECTION` optional). Existing `GET /stats/token-usage` (date/mode chart from `chat_messages`) is intentionally unchanged.
 
 ## Explicitly deferred
 

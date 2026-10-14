@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-- All commands run from `/Users/sidx/workspace/docu-store/web` unless stated. Package manager is **pnpm** (`pnpm dlx` not `npx`).
+- All commands run from `<repo>/web` unless stated. Package manager is **pnpm** (`pnpm dlx` not `npx`).
 - **VERIFY** (referenced by tasks) = `pnpm --filter portal lint && pnpm --filter portal build` — lint is `tsc --noEmit`. Both must pass before every commit.
 - Zero functional loss. Visual modernization is allowed and encouraged (user: "feel free to modernize portions of ui if required") — behavior/feature parity is the floor, looks may improve.
 - Dark mode = `[data-theme="dark"]` attribute. NEVER introduce a `.dark` class. `@custom-variant dark` in globals.css already binds Tailwind's `dark:` to the attribute.

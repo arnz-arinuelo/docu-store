@@ -16,7 +16,7 @@
 - F1 (page hint) is **page-detail only** and **frontend-only** (no backend call) — uses `page.compound_mentions` already in the payload.
 - Reuse `MoleculeStructure` (`@docu-store/ui`) for all structure rendering; never add a new depiction path.
 - Frontend `Bioactivity` type (`packages/types/src/domain/extraction.ts:68-73`) = `{assay_type, value, unit, raw_text}` and MUST stay mirrored with the backend `BioactivityDTO`.
-- Working dir for paths below: repo root `/Users/sidx/workspace/docu-store`.
+- Working dir for paths below: repo root `<repo>`.
 
 ---
 

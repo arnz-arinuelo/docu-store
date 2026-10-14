@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- **Run every Python command with `uv run`.** Working dir: `/Users/sidx/workspace/docu-store/services`.
+- **Run every Python command with `uv run`.** Working dir: `<repo>/services`.
 - **Lint clean before each commit:** `uv run ruff check <changed source files under application/ infrastructure/>` (the project lint gate covers `application/ domain/ infrastructure/ interfaces/`, not `tests/` or `scripts/`).
 - **No retrieval/query changes** — `query_planning.py`, search use cases, filters, rerank untouched.
 - **No new models / LLM / extra NER passes / new aggregate events / read-model fields.** Reuse page-level NER output; signals live in the Qdrant chunk payload.

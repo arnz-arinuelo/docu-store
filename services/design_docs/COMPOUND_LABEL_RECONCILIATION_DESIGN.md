@@ -3,7 +3,7 @@
 **Status:** design — approved decisions locked, ready for `superpowers:writing-plans`.
 **Date:** 2026-07-11
 **Problem statement:** `design_docs/COMPOUND_LABEL_RECONCILIATION.md` (the handoff).
-**Predecessor:** the lookup-side band-aid (#1) is in the tree (`compound_qdrant_store.py`, glyph fallback), not yet deployed to ned.
+**Predecessor:** the lookup-side band-aid (#1) is in the tree (`compound_qdrant_store.py`, glyph fallback), not yet deployed to prod.
 
 ---
 

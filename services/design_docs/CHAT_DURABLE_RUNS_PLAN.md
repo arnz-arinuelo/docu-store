@@ -10,8 +10,8 @@
 
 ## Global Constraints
 
-- All Python commands run via `uv run` from `/Users/sidx/workspace/docu-store/services/` (e.g. `uv run pytest`).
-- All web commands run via `pnpm` from `/Users/sidx/workspace/docu-store/web/` (typecheck: `pnpm --filter portal lint` — that script is `tsc --noEmit`; there is NO frontend unit-test runner in this repo, so frontend tasks verify via typecheck + the final browser pass).
+- All Python commands run via `uv run` from `<repo>/services/` (e.g. `uv run pytest`).
+- All web commands run via `pnpm` from `<repo>/web/` (typecheck: `pnpm --filter portal lint` — that script is `tsc --noEmit`; there is NO frontend unit-test runner in this repo, so frontend tasks verify via typecheck + the final browser pass).
 - No new dependencies, backend or frontend.
 - Python style: `from __future__ import annotations`, `X | None` unions, structlog logging, pydantic v2 models.
 - Commits: conventional commits (`feat(chat): …`, `test(chat): …`), each ending with the trailer `Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>`.
@@ -216,7 +216,7 @@ async def test_evicted_after_ttl():
 
 - [ ] **Step 2: Run tests to verify they fail**
 
-Run: `cd /Users/sidx/workspace/docu-store/services && uv run pytest tests/infrastructure/test_chat_run_registry.py -v`
+Run: `cd <repo>/services && uv run pytest tests/infrastructure/test_chat_run_registry.py -v`
 Expected: collection error — `ModuleNotFoundError`/`ImportError` for `infrastructure.chat.run_registry`.
 
 - [ ] **Step 3: Write the implementation**
@@ -394,13 +394,13 @@ class ChatRunRegistry:
 
 - [ ] **Step 4: Run tests to verify they pass**
 
-Run: `cd /Users/sidx/workspace/docu-store/services && uv run pytest tests/infrastructure/test_chat_run_registry.py -v`
+Run: `cd <repo>/services && uv run pytest tests/infrastructure/test_chat_run_registry.py -v`
 Expected: 12 passed.
 
 - [ ] **Step 5: Commit**
 
 ```bash
-cd /Users/sidx/workspace/docu-store
+cd <repo>
 git add services/infrastructure/chat/run_registry.py services/tests/infrastructure/test_chat_run_registry.py
 git commit -m "feat(chat): in-process run registry decoupling generation from HTTP clients
 
@@ -659,7 +659,7 @@ def test_conversation_detail_active_run_false_when_done() -> None:
 
 - [ ] **Step 2: Run tests to verify they fail**
 
-Run: `cd /Users/sidx/workspace/docu-store/services && uv run pytest tests/interfaces/test_chat_run_routes.py -v`
+Run: `cd <repo>/services && uv run pytest tests/interfaces/test_chat_run_routes.py -v`
 Expected: FAIL — 404s on the new routes, missing `active_run` key, no 409 (routes don't exist yet).
 
 - [ ] **Step 3: Add `active_run` to the DTO**
@@ -846,18 +846,18 @@ from infrastructure.chat.run_registry import ChatRunRegistry
 
 - [ ] **Step 7: Run the interface suites**
 
-Run: `cd /Users/sidx/workspace/docu-store/services && uv run pytest tests/interfaces/test_chat_run_routes.py tests/interfaces/test_quota_enforcement.py -v`
+Run: `cd <repo>/services && uv run pytest tests/interfaces/test_chat_run_routes.py tests/interfaces/test_quota_enforcement.py -v`
 Expected: all pass (11 new + existing quota tests).
 
 - [ ] **Step 8: Run the full backend suite**
 
-Run: `cd /Users/sidx/workspace/docu-store/services && uv run pytest -q`
+Run: `cd <repo>/services && uv run pytest -q`
 Expected: all pass (~680; was 667 before this feature). If anything else asserted on the old SSE body format (no `id:` lines), fix that test to accept the `id: <seq>` line.
 
 - [ ] **Step 9: Commit**
 
 ```bash
-cd /Users/sidx/workspace/docu-store
+cd <repo>
 git add services/interfaces/api/routes/chat_routes.py services/application/dtos/chat_dtos.py services/infrastructure/di/container.py services/tests/interfaces/
 git commit -m "feat(chat): durable send + resume/stop endpoints + active_run flag
 
@@ -980,13 +980,13 @@ and update the dependency array to include the new values:
 
 - [ ] **Step 4: Typecheck**
 
-Run: `cd /Users/sidx/workspace/docu-store/web && pnpm --filter portal lint`
+Run: `cd <repo>/web && pnpm --filter portal lint`
 Expected: exits 0. (No frontend unit-test runner exists in this repo; behavior is verified in Task 6's browser pass.)
 
 - [ ] **Step 5: Commit**
 
 ```bash
-cd /Users/sidx/workspace/docu-store
+cd <repo>
 git add web/packages/types/src/domain/chat.ts web/apps/portal/src/components/chat/ChatPanel.tsx web/apps/portal/src/hooks/use-chat.ts
 git commit -m "feat(web): chat streams survive navigation; Stop cancels the server run
 
@@ -1125,13 +1125,13 @@ In `web/apps/portal/src/components/chat/ChatPanel.tsx`, after the queued-message
 
 - [ ] **Step 5: Typecheck**
 
-Run: `cd /Users/sidx/workspace/docu-store/web && pnpm --filter portal lint`
+Run: `cd <repo>/web && pnpm --filter portal lint`
 Expected: exits 0.
 
 - [ ] **Step 6: Commit**
 
 ```bash
-cd /Users/sidx/workspace/docu-store
+cd <repo>
 git add web/apps/portal/src/lib/stores/chat-store.ts web/apps/portal/src/hooks/use-chat.ts web/apps/portal/src/components/chat/ChatPanel.tsx
 git commit -m "feat(web): reattach chat UI to in-flight server runs
 
@@ -1246,13 +1246,13 @@ import { ChatNotifications } from "@/components/chat/ChatNotifications";
 
 - [ ] **Step 3: Typecheck**
 
-Run: `cd /Users/sidx/workspace/docu-store/web && pnpm --filter portal lint`
+Run: `cd <repo>/web && pnpm --filter portal lint`
 Expected: exits 0.
 
 - [ ] **Step 4: Commit**
 
 ```bash
-cd /Users/sidx/workspace/docu-store
+cd <repo>
 git add web/apps/portal/src/components/chat/ChatNotifications.tsx "web/apps/portal/src/app/[workspace]/layout.tsx"
 git commit -m "feat(web): browser notification when a chat answer is ready
 
@@ -1267,12 +1267,12 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 
 - [ ] **Step 1: Full backend suite**
 
-Run: `cd /Users/sidx/workspace/docu-store/services && uv run pytest -q`
+Run: `cd <repo>/services && uv run pytest -q`
 Expected: all pass, 0 failures.
 
 - [ ] **Step 2: Frontend typecheck**
 
-Run: `cd /Users/sidx/workspace/docu-store/web && pnpm --filter portal lint`
+Run: `cd <repo>/web && pnpm --filter portal lint`
 Expected: exits 0.
 
 - [ ] **Step 3: Runtime pass**

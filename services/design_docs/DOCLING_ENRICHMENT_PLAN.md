@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- **Run every Python command with `uv run`** (e.g. `uv run pytest …`, `uv run ruff …`). Working dir for all commands: `/Users/sidx/workspace/docu-store/services`.
+- **Run every Python command with `uv run`** (e.g. `uv run pytest …`, `uv run ruff …`). Working dir for all commands: `<repo>/services`.
 - **§3 division of labor (first-class):** Do **not** touch `structflo-cser` or feed it anything — CSER owns chemical structures from the full PDF page (`fitz`, independent of Docling). NER is fed *only* indirectly: Phase A captions land in `page.text_mention.text`, which the existing `Page.TextMentionUpdated` → NER path already consumes. No NER code changes in A or B.
 - **§4 storage: zero new aggregate events, zero new read-model fields.** Structure lives in the IR blob (source of truth) + Qdrant chunk payload (search signals). Enriched text still flows via the existing `Page.TextMentionUpdated`. Do not add domain events or Mongo projections.
 - **Docling API is version-pinned** to 2.107.0: `PictureItem.caption_text(doc) -> str`, `TableItem.caption_text(doc) -> str`, `SectionHeaderItem.level` (int field), `item.get_image(doc, prov_index=0)` (Phase C only). `TextItem`/`TitleItem` have **no** `level` field and **no** `caption_text`.

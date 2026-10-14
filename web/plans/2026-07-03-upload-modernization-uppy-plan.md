@@ -45,7 +45,7 @@
 
 - [ ] **Step 1: Add dependencies**
 
-Run: `cd /Users/sidx/workspace/docu-store/web/apps/portal && pnpm add @uppy/core @uppy/xhr-upload @uppy/react`
+Run: `cd <repo>/web/apps/portal && pnpm add @uppy/core @uppy/xhr-upload @uppy/react`
 Expected: three deps added to `package.json`, lockfile updated, postinstall runs clean.
 
 - [ ] **Step 2: Write the hook**
@@ -111,7 +111,7 @@ export function useDocumentUploader() {
 
 - [ ] **Step 3: Typecheck**
 
-Run: `cd /Users/sidx/workspace/docu-store/web/apps/portal && pnpm lint`
+Run: `cd <repo>/web/apps/portal && pnpm lint`
 Expected: PASS. If `getAuthzClient` import path differs, match what `src/hooks/use-artifacts.ts` imports (grep it) before assuming.
 
 - [ ] **Step 4: Commit**
@@ -355,7 +355,7 @@ Note: the folder input bypasses react-dropzone's accept filter, so the parent's 
 
 - [ ] **Step 4: Typecheck + render the components with mock props**
 
-Run: `cd /Users/sidx/workspace/docu-store/web/apps/portal && pnpm lint`
+Run: `cd <repo>/web/apps/portal && pnpm lint`
 Expected: PASS. Then browser-render a scratch page mounting `UploadFileRow` (one row per status: queued/uploading/success/error) and `UploadSummaryBar` (in-progress and done-with-failures states) with mock props, both light+dark, via the playwright harness; confirm layout + theme-correct colors. Delete the scratch page before committing.
 
 - [ ] **Step 5: Commit**
@@ -536,7 +536,7 @@ In `web/apps/portal/src/hooks/use-artifacts.ts`, delete the `useUploadArtifact` 
 
 - [ ] **Step 3: Typecheck**
 
-Run: `cd /Users/sidx/workspace/docu-store/web/apps/portal && pnpm lint`
+Run: `cd <repo>/web/apps/portal && pnpm lint`
 Expected: PASS.
 
 - [ ] **Step 4: Browser-verify the full flow**

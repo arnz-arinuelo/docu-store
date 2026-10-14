@@ -84,7 +84,7 @@ Revert the test className edit. Nothing from this task is committed.
 - [ ] **Step 1: Create the repo and package.json**
 
 ```bash
-mkdir -p /Users/sidx/workspace/daikon-design-tokens && cd /Users/sidx/workspace/daikon-design-tokens && git init
+mkdir -p <repo>/../daikon-design-tokens && cd <repo>/../daikon-design-tokens && git init
 ```
 Create `package.json`:
 ```json
@@ -412,7 +412,7 @@ Create `daikon-design-tokens/tokens.css` with exactly this content:
 - [ ] **Step 2: Commit**
 
 ```bash
-cd /Users/sidx/workspace/daikon-design-tokens
+cd <repo>/../daikon-design-tokens
 git add tokens.css && git commit -m "feat: add canonical tokens.css (union superset)"
 ```
 
@@ -442,7 +442,7 @@ console.log("contract OK:", required.length, "tokens present");
 
 - [ ] **Step 2: Run it**
 
-Run: `cd /Users/sidx/workspace/daikon-design-tokens && node test/contract.mjs`
+Run: `cd <repo>/../daikon-design-tokens && node test/contract.mjs`
 Expected: `contract OK: 10 tokens present`. If it fails, fix the missing token in `tokens.css` (do not weaken the check).
 
 - [ ] **Step 3: Commit**
@@ -457,11 +457,11 @@ git add test/contract.mjs && git commit -m "test: token contract check"
 
 **Files:** none (publish + optional CI workflow).
 
-**Prerequisite:** the `@structflo` npm org must exist and the publishing user must be a member. If not ready, apps can consume `file:/Users/sidx/workspace/daikon-design-tokens` locally until publish is possible — note the switch-back in each app task.
+**Prerequisite:** the `@structflo` npm org must exist and the publishing user must be a member. If not ready, apps can consume `file:<repo>/../daikon-design-tokens` locally until publish is possible — note the switch-back in each app task.
 
 - [ ] **Step 1: Dry-run the pack**
 
-Run: `cd /Users/sidx/workspace/daikon-design-tokens && npm publish --dry-run --access public`
+Run: `cd <repo>/../daikon-design-tokens && npm publish --dry-run --access public`
 Expected: the tarball lists exactly `package.json`, `README.md`, `tokens.css` (not `test/`).
 
 - [ ] **Step 2: Publish**
@@ -507,9 +507,9 @@ git add .github/workflows/publish.yml && git commit -m "ci: publish on tag"
 - [ ] **Step 1: Install the package**
 
 ```bash
-cd /Users/sidx/workspace/docu-store/web && pnpm --filter portal add @structflo/daikon-design-tokens
+cd <repo>/web && pnpm --filter portal add @structflo/daikon-design-tokens
 ```
-(If not yet published: `pnpm --filter portal add file:/Users/sidx/workspace/daikon-design-tokens`.)
+(If not yet published: `pnpm --filter portal add file:<repo>/../daikon-design-tokens`.)
 
 - [ ] **Step 2: Replace the token blocks with the import**
 
@@ -522,13 +522,13 @@ In `docu-store/web/apps/portal/src/app/globals.css`:
 
 - [ ] **Step 3: Build and verify no regression**
 
-Run: `cd /Users/sidx/workspace/docu-store/web && pnpm --filter portal build`
+Run: `cd <repo>/web && pnpm --filter portal build`
 Expected: build succeeds. Visually this should be a **near no-op** (docu-store was already blue/slate/data-theme). Spot-check via Task 8's method after fonts land.
 
 - [ ] **Step 4: Commit**
 
 ```bash
-cd /Users/sidx/workspace/docu-store
+cd <repo>
 git add web/apps/portal/package.json web/apps/portal/src/app/globals.css web/pnpm-lock.yaml
 git commit -m "refactor(portal): consume @structflo/daikon-design-tokens for colors"
 ```
@@ -626,10 +626,10 @@ Wrap inside `FontScaleProvider` (around lines 119–122):
 
 - [ ] **Step 5: Build, then commit**
 
-Run: `cd /Users/sidx/workspace/docu-store/web && pnpm --filter portal build`
+Run: `cd <repo>/web && pnpm --filter portal build`
 Expected: succeeds.
 ```bash
-cd /Users/sidx/workspace/docu-store
+cd <repo>
 git add web/apps/portal/src
 git commit -m "feat(portal): IBM Plex + Inter with data-font preference"
 ```
@@ -671,7 +671,7 @@ Add `<FontToggle />` into that settings panel next to the scale/theme controls.
 
 Run: `pnpm --filter portal build` (from `docu-store/web`). Expected: succeeds.
 ```bash
-cd /Users/sidx/workspace/docu-store && git add web/apps/portal/src && git commit -m "feat(portal): font family switcher"
+cd <repo> && git add web/apps/portal/src && git commit -m "feat(portal): font family switcher"
 ```
 
 ---
@@ -680,7 +680,7 @@ cd /Users/sidx/workspace/docu-store && git add web/apps/portal/src && git commit
 
 - [ ] **Step 1: Run the app and check all four states**
 
-Run: `cd /Users/sidx/workspace/docu-store/web && pnpm --filter portal dev`
+Run: `cd <repo>/web && pnpm --filter portal dev`
 In the browser, toggle and confirm:
 - `data-theme=light` + `data-font=plex` → white bg, blue accents, IBM Plex body
 - `data-theme=dark` → slate `#0f172a` bg, lighter blue accents
@@ -708,7 +708,7 @@ Run: `pnpm --filter portal build` and confirm no CSS warnings about unknown util
 - [ ] **Step 1: Install the package**
 
 ```bash
-cd /Users/sidx/workspace/chem-vault2/frontend && pnpm add @structflo/daikon-design-tokens
+cd <repo>/../chem-vault2/frontend && pnpm add @structflo/daikon-design-tokens
 ```
 
 - [ ] **Step 2: Replace globals.css token blocks with the import**
@@ -816,13 +816,13 @@ Place `<FontToggle />` next to the theme control (find it: `grep -rln "useTheme\
 
 - [ ] **Step 6: Build**
 
-Run: `cd /Users/sidx/workspace/chem-vault2/frontend && pnpm build`
+Run: `cd <repo>/../chem-vault2/frontend && pnpm build`
 Expected: succeeds, no unknown-utility warnings (the union bridge covers `sidebar-primary`, `success-foreground`, etc.).
 
 - [ ] **Step 7: Commit**
 
 ```bash
-cd /Users/sidx/workspace/chem-vault2
+cd <repo>/../chem-vault2
 git add frontend/package.json frontend/pnpm-lock.yaml frontend/src
 git commit -m "feat(frontend): adopt @structflo/daikon-design-tokens + font preference"
 ```
@@ -833,7 +833,7 @@ git commit -m "feat(frontend): adopt @structflo/daikon-design-tokens + font pref
 
 - [ ] **Step 1: Run and check**
 
-Run: `cd /Users/sidx/workspace/chem-vault2/frontend && pnpm dev`
+Run: `cd <repo>/../chem-vault2/frontend && pnpm dev`
 Confirm: blue accents (was already blue — subtle shift to `#3b82f6`), slate dark mode, IBM Plex default, Inter toggle works, mono unchanged, AG Grid + Ketcher panels still legible in both themes, no FOUC. Check a sidebar (uses `sidebar-*` tokens) renders with slate panel.
 
 ---
@@ -845,7 +845,7 @@ Confirm: blue accents (was already blue — subtle shift to `#3b82f6`), slate da
 - [ ] **Step 1: Install package**
 
 ```bash
-cd /Users/sidx/workspace/prot-cellar/frontend && pnpm add @structflo/daikon-design-tokens
+cd <repo>/../prot-cellar/frontend && pnpm add @structflo/daikon-design-tokens
 ```
 
 - [ ] **Step 2: Replace globals.css top with the import** (drop the teal OKLCH block)
@@ -873,8 +873,8 @@ Repeat Task 9 Step 5 verbatim, under `prot-cellar/frontend/src/…` (same three 
 - [ ] **Step 6: Build + commit**
 
 ```bash
-cd /Users/sidx/workspace/prot-cellar/frontend && pnpm build   # expect success
-cd /Users/sidx/workspace/prot-cellar
+cd <repo>/../prot-cellar/frontend && pnpm build   # expect success
+cd <repo>/../prot-cellar
 git add frontend/package.json frontend/pnpm-lock.yaml frontend/src
 git commit -m "feat(frontend): adopt @structflo/daikon-design-tokens + font preference (teal→blue)"
 ```
@@ -901,7 +901,7 @@ git commit -m "feat(frontend): adopt @structflo/daikon-design-tokens + font pref
 - [ ] **Step 1: Swap dependencies**
 
 ```bash
-cd /Users/sidx/workspace/daikon-gen3/frontend
+cd <repo>/../daikon-gen3/frontend
 pnpm remove @base-ui/react shadcn
 pnpm add @structflo/daikon-design-tokens @radix-ui/react-slot
 ```
@@ -978,10 +978,10 @@ Expected: no results. If any surface, re-add the corresponding radix shadcn comp
 
 - [ ] **Step 6: Build and commit**
 
-Run: `cd /Users/sidx/workspace/daikon-gen3/frontend && pnpm build`
+Run: `cd <repo>/../daikon-gen3/frontend && pnpm build`
 Expected: succeeds.
 ```bash
-cd /Users/sidx/workspace/daikon-gen3
+cd <repo>/../daikon-gen3
 git add frontend/package.json frontend/pnpm-lock.yaml frontend/components.json frontend/src/components/ui/button.tsx frontend/src/app/globals.css
 git commit -m "refactor(frontend): migrate base-ui→radix + adopt @structflo/daikon-design-tokens"
 ```
@@ -1099,10 +1099,10 @@ Place `<FontToggle />` wherever gen3 exposes user/settings controls (add a theme
 
 - [ ] **Step 5: Build and commit**
 
-Run: `cd /Users/sidx/workspace/daikon-gen3/frontend && pnpm build`
+Run: `cd <repo>/../daikon-gen3/frontend && pnpm build`
 Expected: succeeds.
 ```bash
-cd /Users/sidx/workspace/daikon-gen3
+cd <repo>/../daikon-gen3
 git add frontend/src
 git commit -m "feat(frontend): IBM Plex+Inter fonts, data-theme/data-font, theme provider"
 ```
@@ -1113,7 +1113,7 @@ git commit -m "feat(frontend): IBM Plex+Inter fonts, data-theme/data-font, theme
 
 - [ ] **Step 1: Run and check**
 
-Run: `cd /Users/sidx/workspace/daikon-gen3/frontend && pnpm dev`
+Run: `cd <repo>/../daikon-gen3/frontend && pnpm dev`
 Confirm: was gray → **now blue/slate**; light + dark via the theme toggle set `data-theme`; IBM Plex default, Inter toggle; the migrated `<Button>` renders all variants (default blue, outline, secondary, ghost, destructive, link) and `asChild` works; Sonner toasts styled; no FOUC; no console errors about base-ui.
 
 ---
