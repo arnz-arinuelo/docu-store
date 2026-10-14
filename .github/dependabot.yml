@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: uv
     directory: /services
     schedule:
-      interval: weekly
+      interval: monthly
     groups:
       services-minor-patch:
         patterns: ["*"]
@@ -16,7 +16,7 @@ updates:
   - package-ecosystem: npm
     directory: /web
     schedule:
-      interval: weekly
+      interval: monthly
     groups:
       web-minor-patch:
         patterns: ["*"]
@@ -29,7 +29,7 @@ updates:
   - package-ecosystem: npm
     directory: /cli
     schedule:
-      interval: weekly
+      interval: monthly
     groups:
       cli-minor-patch:
         patterns: ["*"]
@@ -41,7 +41,7 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
     # Action bumps are major-only (v4 -> v7), so group them all into one PR.
     groups:
       actions:
@@ -50,7 +50,7 @@ updates:
   - package-ecosystem: docker
     directories: [/services, /web]
     schedule:
-      interval: weekly
+      interval: monthly
     # Base image majors (python 3.x, node 2x) are deliberate upgrades.
     ignore:
       - dependency-name: "*"
