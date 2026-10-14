@@ -35,7 +35,7 @@ class TfidfSparseGenerator(SparseEmbeddingGenerator):
             n_features=n_features,
             ngram_range=ngram_range,
             lowercase=True,
-            token_pattern=r"(?u)\b\w[\w\-\.]+\b",  # keeps hyphens/dots (SACC-111, IC50)
+            token_pattern=r"(?u)\b\w[\w\-\.]+\b",  # noqa: S106  # a regex, not a password; keeps hyphens/dots (SACC-111, IC50)
             alternate_sign=False,  # all values non-negative
             norm="l2",  # unit-normalize for cosine-like scoring
         )

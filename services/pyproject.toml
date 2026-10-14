@@ -97,7 +97,6 @@ ignore = [
     "PLC0415",# Import not at top of file
     "TRY300", # Use else block rather than try-except
     "SLF001", # Private member accessed
-    "S106",   # Possible hardcoded password
     "PLW2901",# for loop variable overwritten
     "N806",   # Variable in function should be lowercase
     "ANN",    # Missing type annotations (whole category)
